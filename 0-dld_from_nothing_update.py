@@ -155,8 +155,8 @@ def print_progress(finished, all, time_dur):
 
 # Settings
 # Download path
-local_path = "D:\\Another\\temp\\ANOTHER_RUBBISH\\VIDEOS\\sgsnew"
-# local_path = 'C:\\下载\\temp\\sgs'
+local_path = os.getcwd() + '\\download'
+
 # Number of download threads
 max_connections = 12
 

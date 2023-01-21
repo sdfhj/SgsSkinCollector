@@ -1,5 +1,5 @@
 # SgsSkinCollector
-三国杀十周年皮肤爬虫
+用于下载三国杀十周年皮肤
 
 ## 使用说明
 下载解压；打开命令行或PowerShell，cd到解压后的代码文件夹；使用python运行代码auto_dld.py，即可开始循环抓取所有皮肤。  

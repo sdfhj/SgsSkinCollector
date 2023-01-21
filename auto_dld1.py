@@ -1,8 +1,7 @@
 import os
 
 while True:
-    code_path = 'D:\\Study\\学习\\python\\pycharm\\project study\\sanguoshaskin\\20221111update\\'
-    # code_path = 'F:\cloud\SSS\current study\python\pycharm\project study\sanguoshaskin\\'
+    code_path = 'D:\\Another\\temp\\github\\SgsSkinCollector\\'
 
     cmd = 'python ' + '"' + code_path + '0-dld_from_nothing_update copy.py' + '"'
     os.system(cmd)

@@ -155,7 +155,8 @@ def print_progress(finished, all, time_dur):
 
 # Settings
 # Download path
-local_path = os.getcwd() + '\\download'
+# local_path = os.getcwd() + '\\download'
+local_path = '.\\download'
 
 # Number of download threads
 max_connections = 12
@@ -176,7 +177,7 @@ Semaphore = threading.BoundedSemaphore(max_connections)
 threads = []
 # Put all threads into the list
 index_2_start = 1
-index_2_end = 10000
+index_2_end = 12
 index_2_len = index_2_end - index_2_start
 for index_2 in range(index_2_start, index_2_end):
     threads.append(threading.Thread(target=dld_index_2, args=(str(int(index_2)).zfill(3),)))

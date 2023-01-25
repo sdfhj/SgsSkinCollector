@@ -31,7 +31,7 @@ def get_sort_info_female(local_path):
     return name_list, index_2_list
 
 
-local_path = os.getcwd() + '\\download'
+local_path = '.\\download'
 local_path_sort = local_path + '\\sort'
 
 txt_mobile = local_path + '/' + 'female_mobile.txt'

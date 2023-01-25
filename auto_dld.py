@@ -1,7 +1,7 @@
 import os
 
 while True:
-    code_path = os.getcwd() + '\\'
+    code_path = '.\\'
 
     cmd = 'python ' + '"' + code_path + '0-dld_from_nothing_update.py' + '"'
     os.system(cmd)

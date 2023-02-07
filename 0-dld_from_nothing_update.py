@@ -1,49 +1,6 @@
-import os
-import requests
-from faker import Faker
-faker = Faker(locale='zh_CN')
+from utils import *
 import threading
-from openpyxl import load_workbook
 import time
-import shutil
-
-
-def mkdir(path):
-    folder = os.path.exists(path)
-    if not folder:
-        os.makedirs(path)
-
-def get(url):
-    header = {'User-Agent': faker.user_agent()}
-    i = 0
-    while i < 1:
-        try:
-            result = requests.get(url, headers=header, timeout=10)
-            return result
-        except requests.exceptions.RequestException:
-            # print("Time out " + str(i+1))
-            i += 1
-
-def dld(path, name, url):
-    try:
-        if not os.path.isfile(path + '/' + name):
-            # print('不存在')
-            document = get(url)
-            if document.status_code == 200:
-                mkdir(path)
-                with open(path + '/' + name, 'wb') as f:
-                    f.write(document.content)
-                    # print('已下载完成')
-                    return True
-            else:
-                # print('下载失败并忽略')
-                return False
-        else:
-            # print('已存在')
-            return True
-    except Exception:
-            # print('下载失败并忽略')
-            return False
 
 def dld_index_2(index_2):
     Semaphore.acquire()
@@ -109,47 +66,6 @@ def dld_index_2(index_2):
 
     Semaphore.release()
 
-def get_sort_info(local_path): 
-    index_2_list = []
-    name_list = []
-    wb = load_workbook(filename = local_path + '/' + 'sort.xlsx')
-    ws = wb['Sheet1']
-    rows = ws.rows
-    for row in rows:
-        line = [col.value for col in row]
-        
-        if line[2] == None:
-            name = line[3]
-        else:
-            name = line[2] + '·' + line[3]
-        name = str(name)
-        name = str(line[0]).zfill(4) + ' - ' + name.replace(u'\u3000',u'')
-
-        index_2_list.append(str(line[0]).zfill(4))
-        name_list.append(name)
-
-    return name_list, index_2_list
-
-def get_example_info(local_path): 
-    url_list = []
-    folder_list = []
-    file_name_list = []
-    wb = load_workbook(filename = local_path + '/' + 'Example.xlsx')
-    ws = wb['Sheet1']
-    rows = ws.rows
-    for row in rows:
-        line = [col.value for col in row]
-
-        url_list.append(line[2])
-        folder_list.append(line[3])
-        file_name_list.append(line[4])
-
-    return url_list[1:], folder_list[1:], file_name_list[1:]
-
-def print_progress(finished, all, time_dur):
-    i = finished / all * 100
-    # print("\r\t\t%.2f %%:" % (i), '|', "▋" * (int(i) // 2),"-" * (50 - (int(i) // 2)), '|', '%.2f' % time, 's', end="")
-    print("\r   {:.2f} % |{}{}| {:.2f}s".format(i, "▋" * (int(i) // 2), "-" * (50 - (int(i) // 2)), time_dur), end="")
 
 # -------------------------------------------------------------------------------------
 
@@ -177,7 +93,7 @@ Semaphore = threading.BoundedSemaphore(max_connections)
 threads = []
 # Put all threads into the list
 index_2_start = 1
-index_2_end = 12
+index_2_end = 10000
 index_2_len = index_2_end - index_2_start
 for index_2 in range(index_2_start, index_2_end):
     threads.append(threading.Thread(target=dld_index_2, args=(str(int(index_2)).zfill(3),)))

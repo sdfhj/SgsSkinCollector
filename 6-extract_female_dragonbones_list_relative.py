@@ -1,35 +1,4 @@
-from openpyxl import load_workbook
-import os
-import shutil
-
-
-def mkdir(path):
-    folder = os.path.exists(path)
-    if not folder:
-        os.makedirs(path)
-
-def get_sort_info_female(local_path): 
-    index_2_list = []
-    name_list = []
-    wb = load_workbook(filename = local_path + '/' + 'sort.xlsx')
-    ws = wb['Sheet1']
-    rows = ws.rows
-    for row in rows:
-        line = [col.value for col in row]
-        
-        if line[2] == None:
-            name = line[3]
-        else:
-            name = line[2] + '·' + line[3]
-        name = str(name)
-        name = str(line[0]).zfill(4) + ' - ' + name.replace(u'\u3000',u'')
-
-        if line[4] == '女':
-            index_2_list.append(str(line[0]).zfill(4))
-            name_list.append(name)
-
-    return name_list, index_2_list
-
+from utils import *
 
 local_path = '.\\download'
 local_path_sort = local_path + '\\sort'
@@ -88,6 +57,7 @@ with open(txt_mobile, 'w') as f_mobile, open(txt_mobile_pro, 'w') as f_mobile_pr
                             f_pc_skel.write('\n')
     f_mobile.write(']')
     f_mobile_pro.write(']')
+    f_mobile_all.write(']')
     f_pc.write(']')
     f_pc_skel.write(']')
 
